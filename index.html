@@ -487,8 +487,8 @@
   <!-- Navigation -->
   <nav class="fixed top-0 w-full bg-[#1a1a1a]/80 backdrop-blur-md z-50 border-b border-white/5">
     <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="#" class="text-xl font-bold text-[#fafafa]">Winning <span class="gradient-text">Fellowship</span></a>
-      <div class="hidden md:flex items-center gap-8 text-sm text-[#b0b0b0]">
+      <a href="#" class="text-xl font-extrabold text-[#fafafa]">Winning <span class="gradient-text">Fellowship</span></a>
+      <div class="hidden md:flex items-center gap-8 text-sm font-semibold text-[#b0b0b0]">
         <a href="#about" class="hover:text-accent transition-colors">소개</a>
         <a href="#timeline" class="hover:text-accent transition-colors">일정</a>
         <a href="#career" class="hover:text-accent transition-colors">Career</a>
@@ -1518,12 +1518,14 @@
         const rect = target.getBoundingClientRect();
         const sectionH = rect.height;
         const winH = window.innerHeight;
+        const sectionTop = rect.top + window.scrollY;
         if (sectionH <= winH) {
-          const sectionCenter = rect.top + window.scrollY + sectionH / 2;
-          const y = sectionCenter - winH / 2;
+          const centeredY = sectionTop + sectionH / 2 - winH / 2;
+          const topLimitY = sectionTop - 70;
+          const y = Math.max(centeredY, topLimitY);
           window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
         } else {
-          const y = rect.top + window.scrollY - 10;
+          const y = sectionTop - 10;
           window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
         }
       }
